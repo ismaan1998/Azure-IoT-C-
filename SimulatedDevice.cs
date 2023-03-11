@@ -18,8 +18,8 @@ namespace simulatedDevice
         private static DeviceClient s_deviceClient;
 
         // The device connection string to authenticate the device with your IoT hub.
-        private const string s_connectionString = "HostName=ioth.azure-devices.net;DeviceId=iot-dev1;SharedAccessKey=1MQy4Ao99NXQ7oWVPT1l8zA19a39ZLGDj0pmI6K5TnU=";
-        private const string s_serviceConnectionString = "HostName=ioth.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=tOqSnXV1zygNGAHzAaTSEH/dq3nkWWZmwbSPhesIBO4=";
+        private const string s_connectionString = "connection-string";
+        private const string s_serviceConnectionString = "service-connection_string";
 
         // Async method to send simulated telemetry
         private static async void SendDeviceToCloudMessagesAsync()
