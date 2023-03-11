@@ -18,8 +18,8 @@ namespace simulatedDevice
         private static DeviceClient s_deviceClient;
 
         // The device connection string to authenticate the device with your IoT hub.
-        private const string s_connectionString = "connection-string";
-        private const string s_serviceConnectionString = "service-connection_string";
+        private const string s_connectionString = "connection string";
+        private const string s_serviceConnectionString = "service connection string";
 
         // Async method to send simulated telemetry
         private static async void SendDeviceToCloudMessagesAsync()
@@ -78,6 +78,8 @@ namespace simulatedDevice
         }
 
 
+
+        // handle desired properties as well as update the reported properties. 
         static async void HandleDesiredPropertiesChange()
         {
             await s_deviceClient.SetDesiredPropertyUpdateCallbackAsync(async (desired,ctx) => 
@@ -86,6 +88,16 @@ namespace simulatedDevice
                 var fps = fpsJson.Value;
 
                 Console.WriteLine("Received desired FPS: {0}", fps);
+
+                var reportedProperties = new Microsoft.Azure.Devices.Shared.TwinCollection();
+                var properties = new Microsoft.Azure.Devices.Shared.TwinCollection();
+                properties["FPS"] = fps;
+           
+               
+                reportedProperties["weather"] = properties;
+
+                await s_deviceClient.UpdateReportedPropertiesAsync(reportedProperties);
+
             },null);
         }
         private static void Main()
